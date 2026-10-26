@@ -37,8 +37,8 @@ export async function fetchYouTubeTranscript(videoId: string): Promise<YouTubeTr
   try {
     raw = await YoutubeTranscript.fetchTranscript(videoId);
   } catch (err: any) {
-    if (err.message && (err.message.includes('too many requests') || err.message.includes('captcha') || err.message.includes('IP'))) {
-      throw new Error('YouTube is restricting automated caption fetching from this server IP. Please upload your Zoom / Masterclass transcript file (.vtt, .txt, .docx, .pdf) or paste the transcript text directly.');
+    if (err.message && (err.message.includes('too many requests') || err.message.includes('captcha') || err.message.includes('IP') || err.message.includes('Could not retrieve') || err.message.includes('disabled'))) {
+      throw new Error('YouTube is restricting automated background scraping from cloud hosting IPs (Render / AWS). Please upload your Zoom / Masterclass transcript file, paste captions into Step 4, or proceed with AI auto-draft.');
     }
     throw err;
   }

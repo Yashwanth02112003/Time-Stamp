@@ -1317,35 +1317,58 @@ function jumpTo${pNum}(seconds) {
 
                 {/* Direct YouTube Transcript Fetcher */}
                 <div style={{ marginTop: 8 }}>
-                  <button
-                    type="button"
-                    onClick={handleFetchYouTubeTranscript}
-                    disabled={fetchingYtTranscript || !youtubeUrl}
-                    style={{
-                      width: '100%',
-                      padding: '9px 12px',
-                      borderRadius: 10,
-                      background: ytTranscriptInfo ? '#ECFDF5' : '#FAF5FF',
-                      border: ytTranscriptInfo ? '1.5px solid #10B981' : '1px solid #C084FC',
-                      color: ytTranscriptInfo ? '#065F46' : '#7b2ff7',
-                      fontSize: 12,
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    {fetchingYtTranscript ? (
-                      <><RefreshCw className="spinner" size={13} /> Detecting Official YouTube Captions...</>
-                    ) : ytTranscriptInfo ? (
-                      <><Check size={14} color="#10B981" /> Official YouTube Transcript Loaded ({ytTranscriptInfo.totalCues.toLocaleString()} Cues Ready)</>
-                    ) : (
-                      <><Sparkles size={13} /> Detect &amp; Fetch Official YouTube Transcript (Recommended)</>
-                    )}
-                  </button>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                    <button
+                      type="button"
+                      onClick={handleFetchYouTubeTranscript}
+                      disabled={fetchingYtTranscript || !youtubeUrl}
+                      style={{
+                        flex: 1,
+                        padding: '9px 12px',
+                        borderRadius: 10,
+                        background: ytTranscriptInfo ? '#ECFDF5' : '#FAF5FF',
+                        border: ytTranscriptInfo ? '1.5px solid #10B981' : '1px solid #C084FC',
+                        color: ytTranscriptInfo ? '#065F46' : '#7b2ff7',
+                        fontSize: 12,
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 8,
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {fetchingYtTranscript ? (
+                        <><RefreshCw className="spinner" size={13} /> Detecting Official YouTube Captions...</>
+                      ) : ytTranscriptInfo ? (
+                        <><Check size={14} color="#10B981" /> Official YouTube Transcript Loaded ({ytTranscriptInfo.totalCues.toLocaleString()} Cues Ready)</>
+                      ) : (
+                        <><Sparkles size={13} /> Auto-Fetch YouTube Captions</>
+                      )}
+                    </button>
+                    <a
+                      href={youtubeUrl.startsWith('http') ? youtubeUrl : `https://www.youtube.com/watch?v=${videoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Open video on YouTube to view and copy transcript"
+                      style={{
+                        padding: '9px 12px',
+                        borderRadius: 10,
+                        background: '#FFFFFF',
+                        border: '1px solid #D8B4FE',
+                        color: '#7b2ff7',
+                        fontSize: 12,
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5
+                      }}
+                    >
+                      <ExternalLink size={13} /> Open on YouTube
+                    </a>
+                  </div>
 
                   {ytTranscriptInfo && (
                     <div style={{
@@ -1377,26 +1400,30 @@ function jumpTo${pNum}(seconds) {
                       background: '#FFFBEB',
                       border: '1.5px solid #FCD34D',
                       borderRadius: 10,
-                      padding: '10px 14px',
+                      padding: '12px 14px',
                       fontSize: 12,
                       color: '#92400E',
                       lineHeight: 1.5
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                        <span style={{ fontSize: 16 }}>⚠️</span>
+                        <span style={{ fontSize: 16 }}>💡</span>
                         <div style={{ flex: 1 }}>
-                          <strong style={{ color: '#78350F' }}>YouTube Cloud IP Notice:</strong>
+                          <strong style={{ color: '#78350F' }}>YouTube Cloud Protection Notice:</strong>
                           <p style={{ margin: '3px 0 6px 0', fontSize: 11.5 }}>
-                            YouTube blocks automated caption scraping from cloud hosting IPs (Hostinger).
+                            YouTube blocks automated background scrapers from all cloud hosting servers (Render, Hostinger, AWS). <strong>This does NOT stop your generation!</strong>
                           </p>
                           <div style={{
                             background: '#FEF3C7',
-                            padding: '6px 10px',
+                            padding: '8px 10px',
                             borderRadius: 6,
                             border: '1px dashed #F59E0B',
-                            fontSize: 11.5
+                            fontSize: 11.5,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 4
                           }}>
-                            👉 <strong>Easy Fix:</strong> Upload your Zoom / Masterclass transcript file in <strong>Step 4</strong> below, or copy &amp; paste YouTube captions into the box.
+                            <div>👉 <strong>Option 1 (Fastest):</strong> You do NOT need captions! Just scroll down and click <strong>"Generate Replay Code"</strong>—Gemini AI will draft the timestamps automatically.</div>
+                            <div>👉 <strong>Option 2 (Exact Cues):</strong> Click <strong>"Open on YouTube"</strong> above &rarr; click <code>... More</code> &rarr; <code>Show transcript</code> &rarr; copy &amp; paste into <strong>Step 4</strong> below.</div>
                           </div>
                         </div>
                       </div>
